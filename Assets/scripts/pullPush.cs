@@ -32,11 +32,11 @@ public class pullPush : MonoBehaviour
             hjoint.useLimits = true;
             gameObject.GetComponent<HingeJoint>().connectedBody = hitinfo.collider.attachedRigidbody;
             plane.GetComponent<Rigidbody>().isKinematic = false;
-            Debug.Log("hit");
+            //Debug.Log("hit");
             adcomp = true;
             planeStationary = false;
         }
-        else { Debug.Log("miss"); }
+        //else { Debug.Log("miss"); }
         if (Input.GetKey(KeyCode.F)|| OVRInput.Get(OVRInput.RawButton.B))                                                                        //Unlatch
         {
             Destroy(gameObject.GetComponent<HingeJoint>());

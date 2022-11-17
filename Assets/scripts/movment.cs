@@ -27,10 +27,10 @@ public class movment : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick) == Vector2.left || OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
         {
-            rb.AddTorque(-Vector3.up * turnSpeed * 10);
+            rb.AddRelativeTorque(-Vector3.up * turnSpeed * 10);
         }
         
-         if (Input.GetKey(KeyCode.D) || OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick) == Vector2.right ||  OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight))
+         if (Input.GetKey(KeyCode.D) || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick) == Vector2.right ||  OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight))
         {
             rb.AddTorque(Vector3.up * turnSpeed * 10);
         }
