@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
-public class horn : MonoBehaviour
+
+public class changeHornbeforeuse : MonoBehaviour
 {
     public bool isOn = false;
     public GameObject obj;
@@ -21,8 +21,9 @@ public class horn : MonoBehaviour
             {
                 audio = obj.GetComponent<AudioSource>();
                 audio.Play();
-               // isOn = true;
+                // isOn = true;
             }
         }
     }
 }
+

@@ -12,29 +12,41 @@ public class pullPush : MonoBehaviour
     public bool planeStationary=true;
     public HingeJoint hjoint;
     public JointLimits lim;
+
+ 
     void Start()
     {
         plane.GetComponent<Rigidbody>().isKinematic = true;
+     
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         
-        if(Physics.Raycast(transform.position, Vector3.forward * transform.localScale.x,out RaycastHit hitinfo, distance, boxmask) && !adcomp && (Input.GetKey(KeyCode.E)|| OVRInput.Get(OVRInput.RawButton.A)))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward * transform.localScale.x),out RaycastHit hitinfo, distance, boxmask) && !adcomp && (Input.GetKey(KeyCode.E)|| OVRInput.Get(OVRInput.RawButton.A)))
         {
-                                                                                                            //latch
-            gameObject.AddComponent<HingeJoint>();
-            hjoint = gameObject.GetComponent<HingeJoint>();
-            lim = hjoint.limits;
-            lim.min = -90;
-            hjoint.limits = lim;
-            hjoint.useLimits = true;
-            gameObject.GetComponent<HingeJoint>().connectedBody = hitinfo.collider.attachedRigidbody;
-            plane.GetComponent<Rigidbody>().isKinematic = false;
-            //Debug.Log("hit");
-            adcomp = true;
-            planeStationary = false;
+            if(hitinfo.collider.attachedRigidbody.name == "wheel") 
+            {
+                gameObject.AddComponent<HingeJoint>();
+                hjoint = gameObject.GetComponent<HingeJoint>();
+                Debug.Log(hitinfo.collider.attachedRigidbody.name);
+                lim = hjoint.limits;
+                lim.min = -90;
+                //lim.max = 3.231739f;
+                hjoint.limits = lim;
+                hjoint.useLimits = true;
+                gameObject.GetComponent<HingeJoint>().connectedBody = hitinfo.collider.attachedRigidbody;
+                plane.GetComponent<Rigidbody>().isKinematic = false;
+                //Debug.Log("hit");
+                adcomp = true;
+                planeStationary = false;
+            }
+           
+            
+            /*gameObject.GetComponent<HingeJoint>().autoConfigureConnectedAnchor = false;
+            gameObject.GetComponent<HingeJoint>().anchor = new Vector3(0, 0, 0.53f);*/
+            
         }
         //else { Debug.Log("miss"); }
         if (Input.GetKey(KeyCode.F)|| OVRInput.Get(OVRInput.RawButton.B))                                                                        //Unlatch
@@ -51,8 +63,8 @@ public class pullPush : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
-        Gizmos.DrawLine(transform.position, (Vector3)transform.position + Vector3.forward * transform.localScale.x * distance);
+        Gizmos.DrawLine(transform.position, (Vector3)transform.position + transform.TransformDirection(Vector3.forward * transform.localScale.x * distance));
     }
 
-   
+
 }
